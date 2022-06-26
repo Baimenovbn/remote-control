@@ -6,7 +6,9 @@ export const commandsHandler = async (commandWithArgs: string, ws: WebSocket) =>
 
     const action = commandsMapper[command];
     if (action) {
-        ws.send(await action(command, args));
+        const result = await action(command, args);
+
+        ws.send(result + '\0');
     }
 }
 
